@@ -15,8 +15,11 @@ camera → image recognition → tiger appears (POP) → tiger dances → loops
 
 ## 1. Run it
 
-Any static file server works. MindAR requires **HTTPS (or localhost)**
-and a mobile browser (iOS Safari / Android Chrome).
+**Live demo (GitHub Pages — HTTPS, ready for mobile):**
+<https://leemark.github.io/WebARTest/>
+
+To test locally, any static file server works. MindAR requires **HTTPS
+(or localhost)** and a mobile browser (iOS Safari / Android Chrome):
 
 ```bash
 # from this folder — pick one:
@@ -24,8 +27,11 @@ python -m http.server 8000          # then open http://localhost:8000
 npx serve .
 ```
 
-For on-device testing use a tunnel with HTTPS, e.g. `npx localtunnel` or
-`ngrok http 8000`, or serve from your LAN with a self-signed cert.
+The Pages site serves from the `main` branch's root (enabled via
+`gh api repos/leemark/WebARTest/pages`), HTTPS-enforced. If the repo is
+ever made private, Pages still serves; it's HTTPS that matters for the
+camera, and that's guaranteed either way on `github.io`. To deploy
+changes just push to `main` — Pages rebuilds automatically.
 
 ## 2. The image target
 
