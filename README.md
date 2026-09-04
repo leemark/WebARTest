@@ -1,11 +1,11 @@
-# Tiger AR — Admitted-Student Welcome Prototype
+# Tiger AR — Image-Target WebAR Prototype
 
 A mobile WebAR prototype: point a phone camera at the printed tiger card and a
 charming little blocky tiger pops up on it and does a ~11-second looping dance.
 
 The character is **100 % procedural** — built from plain box geometry at
 runtime (`js/voxel-tiger.js`), so there is no dependence on any external 3D
-model, and no official mascot artwork is used or imitated.
+model or pre-existing artwork.
 
 ```
 camera → image recognition → tiger appears (POP) → tiger dances → loops
@@ -36,8 +36,8 @@ changes just push to `main` — Pages rebuilds automatically.
 ## 2. The image target
 
 `targets/tiger-card.png` is a print-ready ~5 in @ 300 dpi sample card. The
-app loads a **compiled** target from `targets/tiger-card.mind`, which you
-create once:
+app loads a **compiled** target from `targets/tiger-card.mind`, currently in
+the repo. If you regenerate the card, re-compile it:
 
 1. Open the MindAR image-target compiler:
    <https://hiukim.github.io/mind-ar-js-doc/tools/compile>
@@ -140,7 +140,9 @@ AGENTS.md             project conventions for agent contributors
 
 ## 7. Status / next steps
 
-- [ ] Compile `targets/tiger-card.mind` (one-off web step, see §2)
-- [ ] On-device smoke test (iOS Safari + Android Chrome)
+- [x] GitHub Pages live (HTTPS): <https://leemark.github.io/WebARTest/>
+- [x] Compiled target: `targets/tiger-card.mind`
+- [ ] On-device smoke test (open the Pages URL on iOS Safari / Android Chrome,
+      print the card at ~5 in, point camera → tiger pops + dances)
 - [ ] Optional: record an 11 s music loop → `assets/audio/dance.mp3`
 - [ ] Optional: iterate `CHOREO.keys` after seeing it move in AR

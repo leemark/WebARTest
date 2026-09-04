@@ -2,9 +2,9 @@
 """Generate a print-ready MindAR image target for the Tiger AR prototype.
 
 The card is designed to track well (MindAR wants rich, asymmetric,
-high-contrast detail) while still looking like a piece of premium
-admitted-student print collateral: a chunky pixel-tiger face with
-diagonal tiger stripes on warm cream stock.
+high-contrast detail) while still looking like a piece of premium print
+collateral: a chunky pixel-tiger face with diagonal tiger stripes on
+warm cream stock.
 
 Output: targets/tiger-card.png  (1600x1600, ~300dpi at ~5in square)
 
@@ -12,8 +12,8 @@ Compile it for the app with the MindAR image target compiler:
 https://hiukim.github.io/mind-ar-js-doc/tools/compile
 and save the result as targets/tiger-card.mind
 
-No official institutional artwork is used — this is an original,
-generic blocky tiger motif matching the AR mascot.
+No pre-existing artwork is used — this is an original, generic blocky
+tiger motif matching the AR mascot.
 """
 
 import os

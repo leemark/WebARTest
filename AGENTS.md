@@ -2,10 +2,10 @@
 
 ## What this project is
 
-Mobile **image-target WebAR** prototype ("point phone at printed card →
-blocky tiger pops up and dances") for a Colorado College admitted-student
-package demo. Original procedural character — never use official mascot
-artwork or download external character models.
+Mobile **image-target WebAR** prototype: point a phone camera at a printed
+tiger card and a charming blocky tiger pops up and dances. The character is
+original and procedural — never use existing mascot artwork or downloadable
+models.
 
 ## Stack & commands
 
