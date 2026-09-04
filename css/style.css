@@ -1,0 +1,177 @@
+/* =============================================================================
+   Tiger AR — interface styles
+   Understated on purpose: the AR tiger gets the attention, not the chrome.
+   Palette: warm cream paper, ink, tiger-gold accent.
+   ========================================================================== */
+
+:root {
+  --paper: #faf6ef;
+  --ink: #262019;
+  --ink-soft: #6d6255;
+  --gold: #e8961c;
+  --gold-deep: #c67b0e;
+  --overlay: rgba(24, 19, 14, 0.55);
+  --radius: 18px;
+  font-size: 16px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Avenir Next", "Segoe UI", system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ------------------------------------------------------------------ *
+ *  Landing + error screens                                            *
+ * ------------------------------------------------------------------ */
+#start-screen,
+#error-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background:
+    radial-gradient(120% 90% at 50% 0%, #fffdf8 0%, var(--paper) 55%, #f3ead9 100%);
+}
+
+#start-screen[hidden],
+#error-screen[hidden] { display: none; }
+
+.card {
+  width: 100%;
+  max-width: 380px;
+  text-align: center;
+  padding: 40px 28px 32px;
+  background: #fff;
+  border: 1px solid rgba(38, 32, 25, 0.08);
+  border-radius: var(--radius);
+  box-shadow: 0 24px 60px -24px rgba(38, 32, 25, 0.35);
+}
+
+.kicker {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  margin-bottom: 14px;
+}
+
+.card h1 {
+  font-size: 1.75rem;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  margin-bottom: 14px;
+}
+
+.card .sub {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  margin-bottom: 26px;
+}
+
+.fineprint {
+  margin-top: 18px;
+  font-size: 0.72rem;
+  line-height: 1.45;
+  color: var(--ink-soft);
+}
+
+/* ------------------------------------------------------------------ *
+ *  Buttons                                                            *
+ * ------------------------------------------------------------------ */
+button {
+  font: inherit;
+  font-weight: 600;
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.12s ease, background 0.15s ease, box-shadow 0.15s ease;
+}
+
+button:active { transform: scale(0.96); }
+
+#start-button {
+  padding: 15px 42px;
+  font-size: 1.05rem;
+  color: #fff;
+  background: linear-gradient(180deg, var(--gold) 0%, var(--gold-deep) 100%);
+  box-shadow: 0 10px 24px -10px rgba(198, 123, 14, 0.7);
+}
+
+#start-button:hover { box-shadow: 0 14px 28px -10px rgba(198, 123, 14, 0.85); }
+
+/* ------------------------------------------------------------------ *
+ *  AR overlay                                                         *
+ * ------------------------------------------------------------------ */
+#ar-ui {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  pointer-events: none; /* children opt back in */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: calc(env(safe-area-inset-top, 0px) + 18px) 16px
+           calc(env(safe-area-inset-bottom, 0px) + 22px);
+}
+
+#ar-ui[hidden] { display: none; }
+
+.pill {
+  pointer-events: none;
+  padding: 9px 18px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #fff;
+  background: var(--overlay);
+  border-radius: 999px;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: opacity 0.6s ease;
+}
+
+#hint.fade { opacity: 0; }
+
+#controls {
+  display: flex;
+  gap: 10px;
+  pointer-events: auto;
+}
+
+#controls button {
+  padding: 12px 20px;
+  font-size: 0.9rem;
+  color: #fff;
+  background: var(--overlay);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+#controls button:hover { background: rgba(24, 19, 14, 0.72); }
+
+#dance-again {
+  background: linear-gradient(180deg, var(--gold) 0%, var(--gold-deep) 100%) !important;
+  border-color: transparent !important;
+  box-shadow: 0 8px 20px -8px rgba(198, 123, 14, 0.8);
+}
+
+#sound-toggle[aria-pressed="true"] {
+  background: #fff !important;
+  color: var(--ink);
+}
+
+/* MindAR renders full-bleed; keep its canvas under our overlay */
+.a-canvas { position: fixed !important; }
