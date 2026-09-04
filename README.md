@@ -18,6 +18,13 @@ camera → image recognition → tiger appears (POP) → tiger dances → loops
 **Live demo (GitHub Pages — HTTPS, ready for mobile):**
 <https://leemark.github.io/WebARTest/>
 
+**Test it:** scan `qr-code.png` (in this repo) with a phone camera →
+the URL opens → tap **Start AR** → point at `targets/tiger-card.png`
+(printed ~5 in) → a blocky tiger pops out and dances.
+
+Regenerate the QR anytime with `python -m venv .venv && .venv/Scripts/pip
+install "qrcode[pil]"` then `python tools/generate_qr.py`.
+
 To test locally, any static file server works. MindAR requires **HTTPS
 (or localhost)** and a mobile browser (iOS Safari / Android Chrome):
 
