@@ -100,15 +100,16 @@
     }
     geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
-    return new THREE.Mesh(geo, buildBox.material);
+    return new THREE.Mesh(geo, getVoxelMaterial());
   }
+
   // One shared material keeps draw-call state cheap on mobile GPUs.
-  buildBox.material = null;
+  var voxelMaterial = null;
   function getVoxelMaterial() {
-    if (!buildBox.material) {
-      buildBox.material = new THREE.MeshLambertMaterial({ vertexColors: true });
+    if (!voxelMaterial) {
+      voxelMaterial = new THREE.MeshLambertMaterial({ vertexColors: true });
     }
-    return buildBox.material;
+    return voxelMaterial;
   }
 
   /* ------------------------------------------------------------------ *
