@@ -132,11 +132,15 @@ Then implement `glb-tiger` with the **same public surface** as `voxel-tiger`:
   "Dance again" button keeps working untouched
 - `setSoundOn(on)` if you keep the sound hook
 
-Scale/position/rotation: put a wrapper entity between anchor and GLB
-(`<a-entity glb-tiger … scale="0.6 0.6 0.6" position="0 0 0">` — MindAR's
-target lies in its local XY plane, so feet-on-card usually means a -90°
-X-rotation if the GLB was authored Z-up; most GLTFs are Y-up and need
-nothing).
+Scale/position/rotation: MindAR's target lies in its local XY plane; +Z points
+out of the printed surface. The procedural tiger is Y-up, so its entity uses
+`rotation="90 0 0"` to put its feet toward the card and its head outward from it.
+This fixed orientation stays outside the animated root, so dance spins and
+entrance motion follow the same standing-on-card frame. Its front faces the
+bottom edge of the printed artwork. For testing as a dance mat, lay the card
+flat and view it from that edge; a vertical screen makes the tiger project
+outward from the screen. Apply the same +90-degree X rotation to a Y-up GLB,
+or choose the equivalent transform for that model's authored up axis.
 
 `assets/models/` and `assets/audio/` directories are already in place.
 
