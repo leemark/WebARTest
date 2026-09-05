@@ -20,11 +20,15 @@
 html, body {
   height: 100%;
   overflow: hidden;
-  background: var(--paper);
   color: var(--ink);
   font-family: "Avenir Next", "Segoe UI", system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
+
+/* MindAR inserts its camera video at z-index: -2. Keep it inside the
+   body's stacking context so it cannot fall behind the page background. */
+html { background: var(--paper); }
+body { position: relative; isolation: isolate; background: transparent; }
 
 /* ------------------------------------------------------------------ *
  *  Landing + error screens                                            *
