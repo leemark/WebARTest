@@ -1,0 +1,25 @@
+#tracking-test-panel {
+  width: min(100%, 390px);
+  margin-top: auto;
+  padding: 14px 16px;
+  border-radius: 16px;
+  color: #fff;
+  background: rgba(20, 18, 15, 0.93);
+  pointer-events: auto;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+#tracking-test-panel[hidden], #controls[hidden] { display: none; }
+#tracking-test-panel p { margin: 7px 0; }
+#tracking-test-panel label { display: flex; align-items: center; gap: 10px; }
+#tracking-test-panel select {
+  font: inherit;
+  padding: 6px;
+  border-radius: 6px;
+  color: #181510;
+  background: #fff;
+}
+#tracking-test-panel small { display: block; margin-top: 9px; color: #ded8cd; }
+.tracking-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.tracking-actions button { padding: 10px 12px; background: #eab337; color: #181510; }
+.tracking-actions button:disabled { background: #514b43; color: #d1c9bd; cursor: default; }

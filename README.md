@@ -72,6 +72,12 @@ Miss/warmup tolerances affect losing/reacquiring the target, not continuous pose
 smoothing. For the comparison, hold still, then move slowly in an arc around a
 flat card; watch the feet relative to the printed border.
 
+For a stationary-tiger comparison and an opt-in 20-second numeric tracking
+capture, open `?tracking-test=1`. Follow [the printed-card test steps](docs/TRACKING_TEST.md).
+The report separates fresh poses from stale poses retained during brief tracking
+loss. It stays on the phone unless the tester chooses to download and share it;
+no camera images or audio are captured. This mode does not change tracker tuning.
+
 
 ## 3. How the tiger works
 
