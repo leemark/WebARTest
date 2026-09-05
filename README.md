@@ -34,11 +34,16 @@ python -m http.server 8000          # then open http://localhost:8000
 npx serve .
 ```
 
-The Pages site serves from the `main` branch's root (enabled via
-`gh api repos/leemark/WebARTest/pages`), HTTPS-enforced. If the repo is
-ever made private, Pages still serves; it's HTTPS that matters for the
-camera, and that's guaranteed either way on `github.io`. To deploy
-changes just push to `main` — Pages rebuilds automatically.
+The Pages site serves from the public `main` branch's root with HTTPS enforced.
+Pushes to `main` rebuild Pages; verify the Pages build and live URL afterward.
+Changing repository visibility can affect hosting availability. The original
+QR URL is unchanged.
+
+Startup failures show camera/settings or connection guidance and a **Reload
+and try again** button. Startup is limited to 30 seconds. Reload creates a fresh
+camera/tracker session; leaving the page stops the camera, and returning through
+browser history reloads a fresh landing screen.
+
 
 ## 2. The image target
 
@@ -98,15 +103,18 @@ The experience is complete in silence. To add a dance track:
 1. Drop a file at `assets/audio/dance.mp3`.
 2. In `index.html`: `<a-entity id="tiger" voxel-tiger="autoDance: true; audioSrc: assets/audio/dance.mp3">`
 
-Nothing autoplays: the audio element is only ever `play()`-ed while a dance
-starts **and** the user has flipped the **Sound: Off → On** pill (explicit
-gesture → browser autoplay-safe). Toggling back off or losing the target
-stops and resets the file.
+The sound toggle is hidden unless `audioSrc` is configured. Audio defaults off
+and is attempted only after the user enables it. The current hook attempts
+playback at the next dance start; toggling off mutes it. Track loss preserves
+dance timing and does not stop audio. Mobile browser playback-policy behavior
+must be tested before adding a track; an earlier toggle alone does not guarantee
+that later playback is allowed.
+
 
 ## 5. Replacing the tiger with a GLB later
 
-The tracking layer (`index.html` + `js/app.js` + `imageTargetSrc`) never
-changes. Swap one entity inside the anchor:
+The image target stays the same. Swap one entity inside the anchor, then
+update the `tiger()` accessor in `js/app.js` to retrieve `glb-tiger`:
 
 ```html
 <!-- before (current MVP) -->
@@ -137,6 +145,7 @@ nothing).
 ```
 index.html            page + scene + UI markup
 css/style.css         understated cream/gold interface
+js/ar-config.js       disables optional remote A-Frame inspector
 js/app.js             UI ↔ MindAR ↔ tiger glue
 js/voxel-tiger.js     procedural character + entrance + choreography
 vendor/               aframe.min.js, mindar-image-aframe.prod.js (offline)
@@ -153,3 +162,29 @@ AGENTS.md             project conventions for agent contributors
       print the card at ~5 in, point camera → tiger pops + dances)
 - [ ] Optional: record an 11 s music loop → `assets/audio/dance.mp3`
 - [ ] Optional: iterate `CHOREO.keys` after seeing it move in AR
+
+## 8. Reliability checks
+
+```bash
+node --check js/app.js
+node --check js/ar-config.js
+node --check js/voxel-tiger.js
+node tests/app-lifecycle.test.js
+node tests/dance-baseline.test.js
+```
+
+The tiger's body-position keys are offsets from its hip height. Root-position
+keys remain absolute. Tracking loss restores the pointing hint; reacquisition
+hides it without replaying the one-shot entrance or resetting choreography.
+
+`js/ar-config.js` disables the optional inspector before the scene initializes,
+covering its query, shortcut, and message activation paths without modifying
+vendor files. The configured AR flow uses local scripts and the local target;
+unused A-Frame features still contain conditional external asset loaders.
+
+Phone acceptance remains pending: print `targets/tiger-card.png` at about five
+inches and complete five scan-to-dance runs each on iOS Safari and Android Chrome.
+Check permission recovery, indoor lighting, card angles, full dance and replay,
+loss/reacquisition, rotation, background/resume, and camera shutdown on exit.
+Record device/browser versions and startup/recognition times. Desktop simulation
+does not prove image recognition or physical card registration.

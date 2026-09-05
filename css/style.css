@@ -101,7 +101,8 @@ button {
 
 button:active { transform: scale(0.96); }
 
-#start-button {
+#start-button,
+#retry-button {
   padding: 15px 42px;
   font-size: 1.05rem;
   color: #fff;

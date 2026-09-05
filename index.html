@@ -8,9 +8,10 @@
   <title>Tiger AR</title>
   <link rel="stylesheet" href="css/style.css" />
 
-  <!-- AR stack (vendored locally — no CDN dependency at runtime) -->
+  <!-- AR stack (vendored locally; optional remote inspector disabled) -->
   <script src="vendor/aframe.min.js"></script>
   <script src="vendor/mindar-image-aframe.prod.js"></script>
+  <script src="js/ar-config.js"></script>
 </head>
 <body>
 
@@ -37,6 +38,7 @@
         This experience needs a camera and a modern browser
         (Safari on iPhone, Chrome on Android).
       </p>
+      <button id="retry-button" type="button">Reload and try again</button>
     </div>
   </div>
 
@@ -45,7 +47,7 @@
     <div id="hint" class="pill">Point your camera at the tiger card</div>
     <div id="controls">
       <button id="dance-again" type="button" hidden>&#8635;&nbsp; Dance again</button>
-      <button id="sound-toggle" type="button" aria-pressed="false">Sound: Off</button>
+      <button id="sound-toggle" type="button" hidden aria-pressed="false">Sound: Off</button>
     </div>
   </div>
 

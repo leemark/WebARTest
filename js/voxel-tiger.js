@@ -230,6 +230,12 @@
     }
   };
 
+  // The body position track is authored relative to its hip-height pivot.
+  // Other position tracks remain absolute.
+  var POSITION_BASELINES = {
+    body: [0, 0.62, 0]
+  };
+
   /* ------------------------------------------------------------------ *
    *  Keyframe sampler (pure function — unit-testable in Node).          *
    *  Fills `out` with {partName: {pos:[..], rot:[..], scale:[..]}}.     *
@@ -322,7 +328,7 @@
       var rig = this.el.object3D;
       var root = this.addPart('root', new THREE.Group(), rig);
       var body = this.addPart('body', new THREE.Group(), root);
-      body.position.set(0, 0.62, 0); // hip height
+      body.position.set(0, POSITION_BASELINES.body[1], 0); // hip height
 
       /* ---- torso ------------------------------------------------ */
       var torso = this.addPart('torso', new THREE.Group(), body);
@@ -529,7 +535,14 @@
         var obj = parts[name];
         if (!obj) continue;
         var p = pose[name];
-        if (p.pos)   obj.position.set(p.pos[0], p.pos[1], p.pos[2]);
+        if (p.pos) {
+          var baseline = POSITION_BASELINES[name];
+          obj.position.set(
+            p.pos[0] + (baseline ? baseline[0] : 0),
+            p.pos[1] + (baseline ? baseline[1] : 0),
+            p.pos[2] + (baseline ? baseline[2] : 0)
+          );
+        }
         if (p.rot)   obj.rotation.set(p.rot[0], p.rot[1], p.rot[2]);
         if (p.scale) obj.scale.set(p.scale[0], p.scale[1], p.scale[2]);
       }
