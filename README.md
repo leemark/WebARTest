@@ -1,7 +1,7 @@
 # Tiger AR — Image-Target WebAR Prototype
 
 A mobile WebAR prototype: point a phone camera at the printed tiger card and a
-charming little blocky tiger pops up on it and does a ~11-second looping dance.
+charming little blocky tiger pops up on it and does a ~16-second looping dance.
 
 The character is **100 % procedural** — built from plain box geometry at
 runtime (`js/voxel-tiger.js`), so there is no dependence on any external 3D
@@ -64,18 +64,33 @@ Other tuning knobs live in `index.html` on the `<a-scene>` `mindar-image`
 attribute: `filterMinCF` / `filterBeta` (jitter vs. lag trade-off),
 `missTolerance`, `warmupTolerance`.
 
+Tracking uses MindAR 1.2.5's default adaptive response (`filterBeta: 1000`),
+with `filterMinCF: 0.001`. The earlier beta of `0.01` made the pose filter
+slow to follow camera movement. Returning to the library default aims to reduce
+lag and temporary shape changes, but needs a phone comparison for jitter.
+Miss/warmup tolerances affect losing/reacquiring the target, not continuous pose
+smoothing. For the comparison, hold still, then move slowly in an arc around a
+flat card; watch the feet relative to the printed border.
+
+
 ## 3. How the tiger works
 
 `js/voxel-tiger.js` registers the A-Frame component `voxel-tiger`. It builds
 this hierarchy from `THREE.BoxGeometry` (shared Lambert material, per-face
-vertex shading for the voxel look):
+vertex shading for the voxel look). Its gold uses Colorado College's
+[Tiger Gold #EAB337](https://www.coloradocollege.edu/offices/ocm/guides-and-best-practices/visual-style/colors.html).
+The face takes visual cues from RoCCy's broad white cheeks and expressive eyes;
+the model remains original procedural geometry, with no mascot photos or logo
+artwork embedded.
+
+Hierarchy:
 
 ```
 rig (anchor) └ root └ body
                 ├ torso ─ chest, belly, stripes
                 ├ head  ─ skull, muzzle, eyes, nose, stripes + earL/earR
-                ├ armL / armR   (shoulder pivots)
-                ├ legL / legR   (hip pivots)
+                ├ armL / armR   (shoulder + elbow pivots)
+                ├ legL / legR   (hip + knee pivots)
                 └ tailBase → tailMid → tailTip (chained pivots)
 ```
 
@@ -83,11 +98,11 @@ rig (anchor) └ root └ body
   with an ease-out-back overshoot, then settles to scale 1. Plays **once**
   (`targetFound` is gated by a `foundOnce` flag, and `playEntrance()` only
   runs from the `hidden` state), so tracking flicker never retriggers it.
-- **Dance (10.8 s):** data-driven keyframes — `CHOREO.keys` maps
-  `"<part>.<pos|rot|scale>" → [[t, [x,y,z]], …]`, linearly interpolated by
-  `sampleTigerPose()`. Bounce + alternating arm swings → hip twist →
-  alternating kicks + head shake → full spin → victory pose → loops after a
-  0.9 s breather. Retune it by editing keyframes; nothing else to change.
+- **Dance (15.6 s):** data-driven keyframes in `CHOREO.keys`, grouped into
+  robot (0-4 s), running man (4-9 s), floss (9-14 s), and a friendly finish
+  (14-15.6 s), followed by the existing 0.9 s breather. Bent elbow and knee
+  pivots make the routines distinct. The root stays fixed on the marker;
+  smaller body shifts and limb motion replace the previous large hops.
 - **Events:** `tiger-entrance-started`, `tiger-dance-started`,
   `tiger-dance-finished`. `js/app.js` uses these to reveal the
   **Dance again** control, which calls `replayDance()`.
@@ -164,7 +179,7 @@ AGENTS.md             project conventions for agent contributors
 - [x] Compiled target: `targets/tiger-card.mind`
 - [ ] On-device smoke test (open the Pages URL on iOS Safari / Android Chrome,
       print the card at ~5 in, point camera → tiger pops + dances)
-- [ ] Optional: record an 11 s music loop → `assets/audio/dance.mp3`
+- [ ] Optional: record a music loop matching the medley → `assets/audio/dance.mp3`
 - [ ] Optional: iterate `CHOREO.keys` after seeing it move in AR
 
 ## 8. Reliability checks
@@ -175,9 +190,10 @@ node --check js/ar-config.js
 node --check js/voxel-tiger.js
 node tests/app-lifecycle.test.js
 node tests/dance-baseline.test.js
+node tests/choreography.test.js
 ```
 
-The tiger's body-position keys are offsets from its hip height. Root-position
+The tiger's body and leg position keys are offsets from their resting pivots. Root-position
 keys remain absolute. Tracking loss restores the pointing hint; reacquisition
 hides it without replaying the one-shot entrance or resetting choreography.
 

@@ -47,7 +47,9 @@ function assertNear(actual, expected, message) {
 var instance = {
   parts: {
     body: makePart(),
-    root: makePart()
+    root: makePart(),
+    legL: makePart(),
+    legR: makePart()
   }
 };
 var frameCount = 108;
@@ -60,6 +62,13 @@ for (var frame = 0; frame <= frameCount; frame++) {
   assertNear(instance.parts.body.position.x, pose.body.pos[0], 'body x at t=' + t);
   assertNear(instance.parts.body.position.y, 0.62 + pose.body.pos[1], 'body y at t=' + t);
   assertNear(instance.parts.body.position.z, pose.body.pos[2], 'body z at t=' + t);
+
+  ['legL', 'legR'].forEach(function (name) {
+    var sign = name === 'legL' ? -1 : 1;
+    assertNear(instance.parts[name].position.x, sign * 0.17 + pose[name].pos[0], name + ' hip x');
+    assertNear(instance.parts[name].position.y, 0.02 + pose[name].pos[1], name + ' hip y');
+    assertNear(instance.parts[name].position.z, pose[name].pos[2], name + ' slide');
+  });
 
   // Root position remains an absolute choreography channel.
   assertNear(instance.parts.root.position.x, pose.root.pos[0], 'root x at t=' + t);

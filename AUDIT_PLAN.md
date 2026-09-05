@@ -81,3 +81,24 @@ full-dance regression, not a claimed physical-card observation.
 Physical iPhone/Android recognition, alignment, lighting, timing and lifecycle
 acceptance remain pending. Character/music polish is deliberately deferred until
 that gate. Temporary browser fault-injection pages are not production files.
+
+## Character, dance and tracking follow-up
+
+Phone feedback confirmed the camera background and standing-on-marker orientation
+fixes. A subsequent report described drift/puffing during camera movement.
+Restored filterBeta from 0.01 to the vendored MindAR default 1000; this addresses
+a source-confirmed excessive smoothing setting, but improvement and jitter on
+physical phones remain unverified.
+
+The procedural character now has an oversized head, broad white muzzle, larger
+green eyes, compact chest, and articulated elbows/knees. Fur uses CC Tiger Gold
+and corrected linear vertex colors. The 15.6-second medley includes robot holds,
+running-man knee lifts/slides, coordinated floss swings, and a friendly finish.
+Its root remains fixed on the mat throughout the dance.
+
+Validated syntax, the lifecycle regression, body/leg pivot baselines over the
+full dance, finite sorted keyframes, loop settlement, robot holds and opposing
+hip/arm floss motion. Browser previews checked the face and each dance phase
+from front and oblique views using the actual component. These do not establish
+physical tracking performance. Next phone check: hold still, then make a slow
+arc around a flat printed marker and compare the feet with the border.
