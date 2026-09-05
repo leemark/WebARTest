@@ -72,6 +72,15 @@ Miss/warmup tolerances affect losing/reacquiring the target, not continuous pose
 smoothing. For the comparison, hold still, then move slowly in an arc around a
 flat card; watch the feet relative to the printed border.
 
+Recovery now uses `missTolerance: 0`: the first reported tracking miss hides
+the anchor instead of retaining a stale pose for eight processing cycles.
+`warmupTolerance: 3` requires four consecutive successful updates to show it
+again. `js/app.js` resets MindAR 1.2.5's warmup counter on misses, including
+while hidden; MindAR resets its pose filter when the new lock becomes visible.
+The entrance remains one-shot and the dance clock continues during loss.
+This can replace sliding/snapping with a brief disappearance; it does not
+improve image recognition or impose a wall-clock limit on delayed tracker results.
+
 For a stationary-tiger comparison and an opt-in 20-second numeric tracking
 capture, open `?tracking-test=1`. Follow [the printed-card test steps](docs/TRACKING_TEST.md).
 The report separates fresh poses from stale poses retained during brief tracking

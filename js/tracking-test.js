@@ -13,7 +13,7 @@
   }
 
   function createCapture(metadata, startMs) {
-    var report = { schemaVersion: 1, build: 'tracking-check-1', metadata: metadata,
+    var report = { schemaVersion: 1, build: 'tracking-check-2-recovery', metadata: metadata,
       durationMs: 0, stopReason: null, samples: [] };
     return {
       report: report,
@@ -144,7 +144,8 @@
           frameRate: settings.frameRate || null, facingMode: settings.facingMode || null },
         viewport: { width: window.innerWidth, height: window.innerHeight },
         tracking: { filterMinCF: system.filterMinCF, filterBeta: system.filterBeta,
-          missTolerance: system.missTolerance, warmupTolerance: system.warmupTolerance }
+          missTolerance: system.missTolerance, warmupTolerance: system.warmupTolerance,
+          consecutiveWarmup: true }
       }, startedAt);
       active = true;
       surface.disabled = true;

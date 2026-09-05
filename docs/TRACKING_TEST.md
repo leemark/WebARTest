@@ -42,13 +42,24 @@ Each sample is taken after MindAR's `processDone`, after its anchor update:
   or null while hidden. Multiply a point in card units by this matrix; one unit
   is one target width. It contains no tiger animation transforms.
 
-The current MindAR configuration can retain the old pose for eight missed
-processing cycles, then hide on the ninth. Reacquisition during that grace
-period can replace the pose without another warmup. This is a plausible source
-of slipping then snapping; these reports let us distinguish it from pose jumps
-while tracking remains fresh. Pose changes during intentional phone movement
-are expected, so the report is **not** a measurement of tracking accuracy by
-itself. Use the hold-still portions and video/observations together.
+The current release (`tracking-check-2-recovery`) hides the anchor on the first
+reported miss (`missTolerance: 0`) and requires four consecutive fresh results
+before it returns (`warmupTolerance: 3`, `consecutiveWarmup: true`). The ordinary
+and test entries use the same recovery policy. Brief blinks are possible.
+The tracker must report a miss before this policy can act; it does not enforce
+a time limit while camera processing is delayed.
+
+The older `tracking-check-1` release retained the old pose for eight missed
+processing cycles, then hid on the ninth. Its reacquisition during that grace
+period could replace the pose without another warmup. Compare `fresh` and
+`visible` separately: a fresh pose can now remain hidden during warmup.
+The report's `build` and `metadata.tracking` fields distinguish these releases.
+
+Pose changes during intentional phone movement are expected, so the report is
+**not** a measurement of tracking accuracy by itself. Use the hold-still portions
+and video/observations together. For a comparison, repeat the same card,
+lighting, distance and movement, and note whether brief disappearances feel
+better than the previous sliding or snapping.
 
 The test mode does not tune the tracker. The ordinary entry keeps the existing
 one-shot entrance, dance loop and tracking settings. Validate on a physical

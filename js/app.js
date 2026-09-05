@@ -96,6 +96,20 @@
     /* ------------------------- MindAR lifecycle ------------------- */
     sceneEl.addEventListener('arReady', function () {
       if (failed) { stopCamera(); return; }
+      var controller = sceneEl.systems['mindar-image-system'].controller;
+      var onUpdate = controller.onUpdate;
+      // MindAR 1.2.5 retains warmup successes across misses while hidden.
+      // Require consecutive successes on initial acquisition and reacquisition.
+      // Combined with missTolerance: 0, the first miss hides the old pose;
+      // MindAR resets its pose filter when the fresh lock becomes visible.
+      controller.onUpdate = function (event) {
+        if (event.type === 'processDone') {
+          controller.trackingStates.forEach(function (state) {
+            if (!state.isTracking) state.trackCount = 0;
+          });
+        }
+        if (onUpdate) onUpdate.call(controller, event);
+      };
       starting = false;
       clearTimeout(startupTimer);
       soundToggle.hidden = !(tiger() && tiger().data.audioSrc);
