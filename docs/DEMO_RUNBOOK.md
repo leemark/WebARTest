@@ -64,8 +64,9 @@ The revised welcome, final printed layout and new performance still need the
 following end-to-end checks. Record the actual release and observations here;
 do not mark a run successful based on a desktop simulation.
 
-Release: **demo-1** (the commit publishing this runbook; record the deployed
-commit with the rehearsal results).
+Release: **demo-1**, runtime/card candidate
+`d84ebbd2231027cb031a9af2ccccc806d739c140`. Subsequent documentation-only
+updates do not change the rehearsed runtime or card.
 
 | Check | Device/browser | Result | Observation |
 |---|---|---|---|

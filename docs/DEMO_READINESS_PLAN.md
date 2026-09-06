@@ -45,7 +45,7 @@ are outside this release unless a regression makes a scoped repair necessary.
 - [x] Match the landing page invitation, typography, colors and instructions
   to the card. Use short loading/scanning/recovery messages and retain the
   explicit camera permission tap and truthful privacy copy.
-- [ ] Publish the finished print page and downloads with the demo release.
+- [x] Publish the finished print page and downloads with the demo release.
 
 Acceptance: the card reads clearly at its printed size, the QR opens the
 ordinary demo URL, and a first-time participant can follow the instructions.
@@ -87,7 +87,7 @@ transitions are smooth; the performance settles rather than endlessly looping.
   shutdown using the existing recovery paths. Repair only reproduced regressions.
 - [x] Update README status to distinguish completed phone tracking evidence
   from the final first-time-user rehearsal still pending.
-- [ ] Commit only the demo scope, publish to the existing GitHub Pages URL,
+- [x] Commit only the demo scope, publish to the existing GitHub Pages URL,
   verify the provider build, and compare live asset bytes with the commit.
   Freeze that release for rehearsal; reopen it only for a demo-blocking defect.
 
@@ -144,3 +144,8 @@ page was reviewed at phone width. Existing lifecycle tests cover startup timeout
 late initialization, background/resume and camera cleanup. This is desktop
 validation, not the final physical rehearsal. The Letter PDF was rendered and
 reviewed; source target/QR bytes and embedded PDF image pixels are preserved.
+
+Candidate `d84ebbd2231027cb031a9af2ccccc806d739c140` was built successfully
+by GitHub Pages. Live HTML, CSS, application/character JavaScript, print page,
+SVG, PDF and compiled target matched that commit byte for byte. Final physical
+rehearsal and the backup recording remain pending.
