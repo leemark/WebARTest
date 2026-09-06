@@ -1,14 +1,14 @@
 # Tiger AR — Image-Target WebAR Prototype
 
 A mobile WebAR prototype: point a phone camera at the printed tiger card and a
-charming little blocky tiger pops up on it and does a ~16-second looping dance.
+charming little blocky tiger pops up on it and greets you, performs an approximately 18-second dance, and waits for a replay.
 
 The character is **100 % procedural** — built from plain box geometry at
 runtime (`js/voxel-tiger.js`), so there is no dependence on any external 3D
 model or pre-existing artwork.
 
 ```
-camera → image recognition → tiger appears (POP) → tiger dances → loops
+camera → image recognition → tiger appears (POP) → tiger dances → rests → replay
 ```
 
 ---
@@ -45,6 +45,23 @@ camera/tracker session; leaving the page stops the camera, and returning through
 browser history reloads a fresh landing screen.
 
 
+### Print the combined card
+
+Open `print-card.html` for a single-sided 6 x 8 inch card containing both the
+QR and the tiger artwork. Use **100% / actual size**, with browser headers and
+footers off. It fits US Letter paper; the tiger target prints at 5 x 5 inches.
+`output/pdf/tiger-experience-card-letter.pdf` is a US Letter print file with
+the card at actual size. `targets/tiger-experience-card.svg` is the matching
+self-contained graphic. The print page provides both downloads.
+Regenerate the package with `python tools/generate_demo_card.py` using a Python
+environment with ReportLab and Pillow.
+
+The original QR and target PNGs are embedded unchanged. The QR sits outside
+the tracked square, so the current `tiger-card.mind` remains the intended
+tracking target; no recompilation was performed. Test the complete printed
+QR-to-AR flow before a print run. If either source image changes, update the
+embedded image in the combined SVG too.
+
 ## 2. The image target
 
 `targets/tiger-card.png` is a print-ready ~5 in @ 300 dpi sample card. The
@@ -66,8 +83,9 @@ attribute: `filterMinCF` / `filterBeta` (jitter vs. lag trade-off),
 
 Tracking uses MindAR 1.2.5's default adaptive response (`filterBeta: 1000`),
 with `filterMinCF: 0.001`. The earlier beta of `0.01` made the pose filter
-slow to follow camera movement. Returning to the library default aims to reduce
-lag and temporary shape changes, but needs a phone comparison for jitter.
+slow to follow camera movement. The current response and the recovery policy below have since been exercised
+on printed cards using Android Chrome and iPhone Safari, with positive user
+feedback. That evidence supports this prototype, not universal device reliability.
 Miss/warmup tolerances affect losing/reacquiring the target, not continuous pose
 smoothing. For the comparison, hold still, then move slowly in an arc around a
 flat card; watch the feet relative to the printed border.
@@ -113,11 +131,12 @@ rig (anchor) └ root └ body
   with an ease-out-back overshoot, then settles to scale 1. Plays **once**
   (`targetFound` is gated by a `foundOnce` flag, and `playEntrance()` only
   runs from the `hidden` state), so tracking flicker never retriggers it.
-- **Dance (15.6 s):** data-driven keyframes in `CHOREO.keys`, grouped into
-  robot (0-4 s), running man (4-9 s), floss (9-14 s), and a friendly finish
-  (14-15.6 s), followed by the existing 0.9 s breather. Bent elbow and knee
-  pivots make the routines distinct. The root stays fixed on the marker;
-  smaller body shifts and limb motion replace the previous large hops.
+- **Performance (~18 s):** data-driven keyframes in `CHOREO.keys`: greeting,
+  robot, running man, floss and a friendly finish. Bent elbow and knee pivots,
+  held poses and coordinated movement make the routines distinct. The root
+  stays fixed on the marker. The default ends at rest until **Dance again**;
+  `autoDance` controls the initial performance and a separate `loop` option
+  controls automatic repetition (off on the demo page).
 - **Events:** `tiger-entrance-started`, `tiger-dance-started`,
   `tiger-dance-finished`. `js/app.js` uses these to reveal the
   **Dance again** control, which calls `replayDance()`.
@@ -204,8 +223,10 @@ node --check js/app.js
 node --check js/ar-config.js
 node --check js/voxel-tiger.js
 node tests/app-lifecycle.test.js
+node tests/tracking-test.test.js
 node tests/dance-baseline.test.js
 node tests/choreography.test.js
+node tests/performance-lifecycle.test.js
 ```
 
 The tiger's body and leg position keys are offsets from their resting pivots. Root-position
@@ -217,8 +238,8 @@ covering its query, shortcut, and message activation paths without modifying
 vendor files. The configured AR flow uses local scripts and the local target;
 unused A-Frame features still contain conditional external asset loaders.
 
-Phone acceptance remains pending: print `targets/tiger-card.png` at about five
-inches and complete five scan-to-dance runs each on iOS Safari and Android Chrome.
+Final demo rehearsal remains pending: print the final combined card at actual
+size and complete three scan-to-dance runs each on iOS Safari and Android Chrome.
 Check permission recovery, indoor lighting, card angles, full dance and replay,
 loss/reacquisition, rotation, background/resume, and camera shutdown on exit.
 Record device/browser versions and startup/recognition times. Desktop simulation

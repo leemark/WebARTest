@@ -5,8 +5,9 @@
   <meta name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
   <meta name="theme-color" content="#faf6ef" />
-  <title>Tiger AR</title>
-  <link rel="stylesheet" href="css/style.css?v=camera-layer-1" />
+  <meta name="description" content="A little Colorado College welcome. Scan the card and meet your tiny dancing tiger." />
+  <title>Meet your tiny tiger · Colorado College</title>
+  <link rel="stylesheet" href="css/style.css?v=demo-1" />
   <link rel="stylesheet" href="css/tracking-test.css?v=1" />
 
   <!-- AR stack (vendored locally; optional remote inspector disabled) -->
@@ -21,13 +22,15 @@
        moment gets the attention, not the UI.                        -->
   <div id="start-screen">
     <div class="card">
-      <p class="kicker">A little welcome magic</p>
-      <h1>There&rsquo;s a tiger<br />on this card.</h1>
+      <div class="welcome-mark" aria-hidden="true"></div>
+      <p class="kicker">A Colorado College welcome</p>
+      <h1>Meet your<br />tiny tiger.</h1>
       <p class="sub">
-        Grab the printed tiger card, then point your phone&rsquo;s camera at it.
+        A little welcome.<br />With a few extra moves.
       </p>
+      <p class="setup-tip">Lay your card flat, with the QR edge toward you.<br />Then point at the tiger artwork.</p>
       <button id="start-button" type="button">Start AR</button>
-      <p class="fineprint">Camera access is needed for the AR effect. Nothing is recorded or uploaded.</p>
+      <p class="fineprint">No app to install. Camera access brings the tiger to life.<br />Camera images aren&rsquo;t saved or uploaded.</p>
     </div>
   </div>
 
@@ -45,7 +48,7 @@
 
   <!-- ============ AR overlay controls ============================ -->
   <div id="ar-ui" hidden>
-    <div id="hint" class="pill">Point your camera at the tiger card</div>
+    <div id="hint" class="pill" role="status">Card flat. Point at the tiger artwork.</div>
     <div id="controls">
       <button id="dance-again" type="button" hidden>&#8635;&nbsp; Dance again</button>
       <button id="sound-toggle" type="button" hidden aria-pressed="false">Sound: Off</button>
@@ -75,15 +78,15 @@
     <a-entity id="tiger-anchor" mindar-image-target="targetIndex: 0">
       <!-- Model +Y (up) maps to marker +Z (out of its printed surface).
            Keep this transform outside the animated root. -->
-      <a-entity id="tiger" rotation="90 0 0" voxel-tiger="autoDance: true"></a-entity>
+      <a-entity id="tiger" rotation="90 0 0" voxel-tiger="autoDance: true; loop: false"></a-entity>
       <!-- FUTURE GLB: drop the procedural entity above and use
            <a-entity id="tiger" glb-tiger="src: assets/models/tiger.glb"></a-entity>
            See README.md — "Replacing the tiger with a GLB". -->
     </a-entity>
   </a-scene>
 
-  <script src="js/voxel-tiger.js?v=medley-1"></script>
-  <script src="js/app.js?v=recovery-1"></script>
+  <script src="js/voxel-tiger.js?v=demo-1"></script>
+  <script src="js/app.js?v=demo-1"></script>
   <script src="js/tracking-test.js?v=2"></script>
 </body>
 </html>

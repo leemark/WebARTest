@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Print a six by eight inch Colorado College welcome card for the tiny tiger WebAR experience.">
+  <title>Print your tiny tiger card</title>
+  <style>
+    :root {
+      --cream: #faf6ef;
+      --paper: #fffdf9;
+      --gold: #eab337;
+      --deep-gold: #a86f0b;
+      --ink: #262019;
+      --muted: #6d6255;
+      --rule: #e7d9bf;
+      --shadow: 0 20px 54px rgba(38, 32, 25, .14);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: #eee9e0;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .page {
+      width: min(1120px, 100%);
+      margin: 0 auto;
+      padding: 56px 28px 72px;
+    }
+
+    .intro {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 32px;
+      align-items: end;
+      margin-bottom: 32px;
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      color: var(--deep-gold);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2.4px;
+    }
+
+    h1 {
+      max-width: 580px;
+      margin: 0;
+      font-size: clamp(30px, 5vw, 52px);
+      line-height: 1.02;
+      letter-spacing: -.035em;
+    }
+
+    .lede {
+      max-width: 540px;
+      margin: 16px 0 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.55;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    .button {
+      display: inline-flex;
+      min-height: 46px;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--ink);
+      border-radius: 999px;
+      padding: 0 18px;
+      color: var(--ink);
+      background: var(--paper);
+      font: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .button:hover,
+    .button:focus-visible { transform: translateY(-1px); }
+
+    .button.primary {
+      border-color: var(--ink);
+      color: #fff;
+      background: var(--ink);
+    }
+
+    .button.secondary { border-color: var(--rule); }
+
+    .workspace {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 280px;
+      gap: 32px;
+      align-items: start;
+    }
+
+    .preview {
+      display: flex;
+      min-height: 680px;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--rule);
+      border-radius: 22px;
+      padding: 38px;
+      background: #f7f1e8;
+    }
+
+    .card {
+      display: block;
+      width: min(6in, 100%);
+      height: auto;
+      aspect-ratio: 3 / 4;
+      box-shadow: var(--shadow);
+    }
+
+    .details {
+      border-top: 3px solid var(--gold);
+      padding-top: 18px;
+    }
+
+    .details h2 {
+      margin: 0 0 18px;
+      font-size: 20px;
+      line-height: 1.15;
+    }
+
+    .steps {
+      display: grid;
+      gap: 18px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .steps li { display: grid; grid-template-columns: 28px 1fr; gap: 10px; }
+
+    .step-number {
+      display: grid;
+      width: 28px;
+      height: 28px;
+      place-items: center;
+      border-radius: 50%;
+      color: var(--ink);
+      background: var(--gold);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .steps strong { display: block; margin-bottom: 3px; font-size: 14px; }
+    .steps span:last-child { color: var(--muted); font-size: 14px; line-height: 1.45; }
+
+    .note {
+      margin: 28px 0 0;
+      border-top: 1px solid var(--rule);
+      padding-top: 18px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .note strong { color: var(--ink); }
+
+    @media (max-width: 800px) {
+      .page { padding: 34px 18px 48px; }
+      .intro, .workspace { grid-template-columns: 1fr; }
+      .actions { justify-content: flex-start; }
+      .preview { min-height: 0; padding: 24px; }
+    }
+
+    @media print {
+      @page { size: letter portrait; margin: 0; }
+      body { background: #fff; }
+      .page { width: auto; margin: 0; padding: 1.5in 0 0; }
+      .intro, .details { display: none; }
+      .workspace { display: block; }
+      .preview { display: block; min-height: 0; border: 0; border-radius: 0; padding: 0; }
+      .card { width: 6in; height: 8in; margin: 0 auto; box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="intro" aria-labelledby="page-title">
+      <div>
+        <p class="eyebrow">COLORADO COLLEGE / TINY TIGER</p>
+        <h1 id="page-title">A small card for a big surprise.</h1>
+        <p class="lede">Give someone a six by eight inch welcome card. They scan, tap Start AR, and meet a tiny tiger on the artwork.</p>
+      </div>
+      <div class="actions" aria-label="Card actions">
+        <a class="button primary" href="output/pdf/tiger-experience-card-letter.pdf" download>Download print PDF</a>
+        <button class="button" type="button" onclick="window.print()">Print card</button>
+        <a class="button secondary" href="targets/tiger-experience-card.svg" download>Download SVG</a>
+      </div>
+    </section>
+
+    <div class="workspace">
+      <div class="preview">
+        <img class="card" src="targets/tiger-experience-card.svg" width="600" height="800"
+          alt="Meet your tiny tiger. Scan the QR, tap Start AR, lay the card flat, and point at the tiger above.">
+      </div>
+
+      <aside class="details" aria-labelledby="print-details-title">
+        <h2 id="print-details-title">Print it at actual size</h2>
+        <ol class="steps">
+          <li><span class="step-number">1</span><span><strong>Choose the PDF.</strong><span>It places the card at true size on US Letter paper.</span></span></li>
+          <li><span class="step-number">2</span><span><strong>Set 100% / actual size.</strong><span>Turn off fit to page, scaling, and browser headers and footers.</span></span></li>
+          <li><span class="step-number">3</span><span><strong>Keep the viewing edge toward you.</strong><span>Lay the card flat so the tiger faces the participant naturally.</span></span></li>
+        </ol>
+        <p class="note"><strong>Card size:</strong> 6 x 8 in<br><strong>Tracked artwork:</strong> 5 x 5 in<br><strong>QR:</strong> outside the tracked square</p>
+      </aside>
+    </div>
+  </main>
+</body>
+</html>

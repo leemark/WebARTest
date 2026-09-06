@@ -142,6 +142,7 @@
 
     // Restore guidance without resetting the tiger or replaying its entrance.
     anchorEl.addEventListener('targetLost', function () {
+      hint.textContent = 'Bring the tiger artwork back into view.';
       hint.classList.remove('fade');
     });
 
