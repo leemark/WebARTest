@@ -68,6 +68,12 @@ Release: **demo-1 performance / mascot-1 marker**. Use the newly printed
 faceted teal-eyed face. The earlier d84ebbd runtime/card candidate used the
 old face; those old printouts are not the intended target for this release.
 
+The current presentation turns toward the camera and adds up to 30 degrees of
+tilt for steep viewing angles. In the ordinary demo, compare a comfortable
+oblique view with looking straight down, then move slowly around the card.
+Check face visibility, smooth turning and whether the foot-center still feels
+attached. Tracking diagnostics intentionally omit this presentation adjustment.
+
 | Check | Device/browser | Result | Observation |
 |---|---|---|---|
 | Android run 1: fresh QR launch, full performance, replay | Pending | Pending | |

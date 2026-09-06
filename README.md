@@ -200,14 +200,35 @@ Then implement `glb-tiger` with the **same public surface** as `voxel-tiger`:
 - `setSoundOn(on)` if you keep the sound hook
 
 Scale/position/rotation: MindAR's target lies in its local XY plane; +Z points
-out of the printed surface. The procedural tiger is Y-up, so its entity uses
+out of the printed surface. The procedural tiger is Y-up, so its parent uses
 `rotation="90 0 0"` to put its feet toward the card and its head outward from it.
 This fixed orientation stays outside the animated root, so dance spins and
 entrance motion follow the same standing-on-card frame. Its front faces the
-bottom edge of the printed artwork. For testing as a dance mat, lay the card
+bottom edge of the printed artwork before the presentation adjustment below.
+For testing as a dance mat, lay the card
 flat and view it from that edge; a vertical screen makes the tiger project
 outward from the screen. Apply the same +90-degree X rotation to a Y-up GLB,
 or choose the equivalent transform for that model's authored up axis.
+
+### Camera-facing presentation
+
+`js/camera-facing.js` turns the tiger toward the camera within the upright
+marker frame. Above a 45-degree viewing elevation it adds a backward tilt,
+capped at 30 degrees. The pivot remains at the marker origin between the feet;
+the soles are not constrained to stay flush while leaning. This is a visual
+presentation adjustment, not a change to MindAR tracking or marker placement.
+
+The hierarchy is anchor → fixed upright rotation → camera-facing pivot →
+animated tiger. Heading and tilt use deadbands, 0.20-second exponential smoothing
+and a 120-degree/second speed limit. Heading holds near overhead with hysteresis
+to avoid an ambiguous direction causing spins. Hidden anchors are not sampled;
+the first visible pose initializes the adjustment without interpolating from a
+stale lock. Dance timing and the one-shot entrance remain independent.
+
+The default is `camera-facing="maxTilt: 30"` in `index.html`. A browser comparison
+of 0, 30 and 45 degrees supported starting at 30; real-phone comfort and apparent
+foot contact still need testing. `?tracking-test=1` bypasses presentation rotation
+so the diagnostic tiger and cyan outline remain strictly marker-relative.
 
 `assets/models/` and `assets/audio/` directories are already in place.
 
@@ -245,6 +266,7 @@ node tests/tracking-test.test.js
 node tests/dance-baseline.test.js
 node tests/choreography.test.js
 node tests/performance-lifecycle.test.js
+node tests/camera-facing.test.js
 ```
 
 The tiger's body and leg position keys are offsets from their resting pivots. Root-position

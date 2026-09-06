@@ -78,7 +78,11 @@
     <a-entity id="tiger-anchor" mindar-image-target="targetIndex: 0">
       <!-- Model +Y (up) maps to marker +Z (out of its printed surface).
            Keep this transform outside the animated root. -->
-      <a-entity id="tiger" rotation="90 0 0" voxel-tiger="autoDance: true; loop: false"></a-entity>
+      <a-entity rotation="90 0 0">
+        <a-entity camera-facing="maxTilt: 30">
+          <a-entity id="tiger" voxel-tiger="autoDance: true; loop: false"></a-entity>
+        </a-entity>
+      </a-entity>
       <!-- FUTURE GLB: drop the procedural entity above and use
            <a-entity id="tiger" glb-tiger="src: assets/models/tiger.glb"></a-entity>
            See README.md — "Replacing the tiger with a GLB". -->
@@ -86,6 +90,7 @@
   </a-scene>
 
   <script src="js/voxel-tiger.js?v=demo-1"></script>
+  <script src="js/camera-facing.js?v=1"></script>
   <script src="js/app.js?v=demo-1"></script>
   <script src="js/tracking-test.js?v=3"></script>
 </body>
