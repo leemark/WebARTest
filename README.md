@@ -56,11 +56,10 @@ self-contained graphic. The print page provides both downloads.
 Regenerate the package with `python tools/generate_demo_card.py` using a Python
 environment with ReportLab and Pillow.
 
-The original QR and target PNGs are embedded unchanged. The QR sits outside
-the tracked square, so the current `tiger-card.mind` remains the intended
-tracking target; no recompilation was performed. Test the complete printed
-QR-to-AR flow before a print run. If either source image changes, update the
-embedded image in the combined SVG too.
+The original QR is unchanged and sits outside the tracked square. The print
+package now embeds the mascot-face artwork, paired with its newly compiled
+`tiger-card.mind`. Reprint the updated card for this release; the previous
+printed face is no longer the intended tracking target.
 
 ## 2. The image target
 
@@ -80,6 +79,25 @@ recompile. Keep rich asymmetric detail; trackers love texture, hate whitespace.
 Other tuning knobs live in `index.html` on the `<a-scene>` `mindar-image`
 attribute: `filterMinCF` / `filterBeta` (jitter vs. lag trade-off),
 `missTolerance`, `warmupTolerance`.
+
+### Mascot-face target (mascot-1)
+
+`targets/tiger-card.png` is an original faceted portrait based on the procedural
+character's gold palette, teal eyes, cream muzzle and square ears. Generate it
+with `.venv/Scripts/python.exe tools/generate_target.py` (Pillow and NumPy).
+The 1600 x 1600 image retains the surrounding asymmetric frame and caption.
+`--face pixel` writes the older design to a separate `tiger-card-pixel.png`.
+
+The official browser compiler produced the paired version-2 `.mind` target:
+one 1600 x 1600 image, 13 matching scales and two tracking scales. Its embedded
+tracking image was visually checked against this face. Compile only the square
+PNG, not the complete QR/welcome card. On future artwork changes, replace PNG
+and `.mind` together, update the target SHA-256 in `tools/generate_demo_card.py`,
+regenerate the SVG/PDF, and change the target URL cache version in `index.html`
+and the target identifier in `js/tracking-test.js`.
+
+The QR destination stays unchanged. Printed-phone testing of this new artwork
+is pending; earlier tracking captures describe the previous artwork.
 
 Tracking uses MindAR 1.2.5's default adaptive response (`filterBeta: 1000`),
 with `filterMinCF: 0.001`. The earlier beta of `0.01` made the pose filter

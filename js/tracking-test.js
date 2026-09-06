@@ -138,7 +138,7 @@
       var settings = tracks[0] && tracks[0].getSettings ? tracks[0].getSettings() : {};
       startedAt = performance.now();
       capture = createCapture({ surface: surface.value, browser: navigator.userAgent,
-        target: 'targets/tiger-card.mind',
+        target: 'targets/tiger-card.mind?v=mascot-1',
         targetDimensions: system.controller.markerDimensions[0].slice(),
         camera: { width: video.videoWidth, height: video.videoHeight,
           frameRate: settings.frameRate || null, facingMode: settings.facingMode || null },

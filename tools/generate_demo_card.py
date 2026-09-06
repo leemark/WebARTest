@@ -29,7 +29,7 @@ QR_PATH = ROOT / 'qr-code.png'
 SVG_PATH = ROOT / 'targets' / 'tiger-experience-card.svg'
 PDF_PATH = ROOT / 'output' / 'pdf' / 'tiger-experience-card-letter.pdf'
 
-TARGET_SHA256 = 'cfcecd7b9c984fee5c9a8118576d1cba9668641e10ac67c0e4984a656179ea59'
+TARGET_SHA256 = 'f17eee6292dd4716517f8d71070dfa2bf60190c83af139bf01f017a4dae19835'
 QR_SHA256 = '55fc8254658756d3447135510f4c3e9001eb609666a201434b7288082f64546f'
 
 CARD_W = 600

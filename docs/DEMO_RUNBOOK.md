@@ -64,9 +64,9 @@ The revised welcome, final printed layout and new performance still need the
 following end-to-end checks. Record the actual release and observations here;
 do not mark a run successful based on a desktop simulation.
 
-Release: **demo-1**, runtime/card candidate
-`d84ebbd2231027cb031a9af2ccccc806d739c140`. Subsequent documentation-only
-updates do not change the rehearsed runtime or card.
+Release: **demo-1 performance / mascot-1 marker**. Use the newly printed
+faceted teal-eyed face. The earlier d84ebbd runtime/card candidate used the
+old face; those old printouts are not the intended target for this release.
 
 | Check | Device/browser | Result | Observation |
 |---|---|---|---|

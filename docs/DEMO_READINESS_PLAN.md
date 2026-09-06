@@ -149,3 +149,12 @@ Candidate `d84ebbd2231027cb031a9af2ccccc806d739c140` was built successfully
 by GitHub Pages. Live HTML, CSS, application/character JavaScript, print page,
 SVG, PDF and compiled target matched that commit byte for byte. Final physical
 rehearsal and the backup recording remain pending.
+
+## User-requested marker revision — September 6, 2026
+
+The user superseded the original preserve-artwork constraint with a request
+for a face resembling the procedural tiger. The mascot-1 artwork and its
+browser-compiled target replace the earlier pair together; QR, card dimensions,
+tracking settings, orientation and choreography stay the same. Regenerated
+SVG/PDF use the new face. Earlier phone tracking evidence applies to the old
+artwork. Final physical checks above must use the newly printed mascot-1 card.
